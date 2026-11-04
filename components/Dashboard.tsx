@@ -209,11 +209,13 @@ export default function Dashboard() {
     );
   }
 
-  const approved = data.jobs.filter(
-    (job) => job.status === "approved"
-  ).length;
+  const compatibleJobs = data.jobs.filter(
+  (job) => job.status === "approved"
+);
 
-  const ignored = data.jobs.length - approved;
+const approved = compatibleJobs.length;
+
+const ignored = data.jobs.length - approved;
 
   return (
     <div className="min-h-screen">
@@ -304,13 +306,13 @@ export default function Dashboard() {
             </div>
 
             <section className="card overflow-hidden">
-              {data.jobs.length === 0 ? (
-                <p className="p-5 text-slate-400">
-                  Nenhuma vaga armazenada. Clique em
-                  “Buscar agora”.
-                </p>
-              ) : (
-                data.jobs.map((job) => (
+             {compatibleJobs.length === 0 ? (
+  <p className="p-5 text-slate-400">
+    Nenhuma vaga compatível com os filtros atuais.
+    Ajuste os filtros ou reduza a pontuação mínima.
+  </p>
+) : (
+  compatibleJobs.map((job) => (
                   <article
                     key={job.id}
                     className="flex flex-col gap-3 border-b border-white/10 p-4 sm:flex-row sm:items-center sm:justify-between"
