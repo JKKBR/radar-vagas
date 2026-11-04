@@ -7,7 +7,13 @@ function escapeHtml(value: string) {
 }
 
 export type TelegramJob = {
-  title: string;
+  position: string;
+  company?: string;
+  salary?: string;
+  location?: string;
+  vacancies?: string;
+  experience?: string;
+  extras?: string[];
   url: string;
   source: string;
   score: number;
