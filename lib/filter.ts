@@ -1,0 +1,3 @@
+export type Rules={include:string[];exclude:string[];cities:string[];minScore:number};
+const norm=(s:string)=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+export function evaluate(text:string,r:Rules){const t=norm(text);const inc=r.include.filter(x=>t.includes(norm(x)));const exc=r.exclude.filter(x=>t.includes(norm(x)));const loc=r.cities.filter(x=>t.includes(norm(x)));let score=inc.length*35+loc.length*20-exc.length*100;if(!r.include.length)score+=50;if(!r.cities.length)score+=20;score=Math.max(0,Math.min(100,score));return {score,approved:exc.length===0&&score>=r.minScore,reasons:[...inc.map(x=>`Palavra desejada: ${x}`),...loc.map(x=>`Local: ${x}`),...exc.map(x=>`Bloqueada: ${x}`)]}}
