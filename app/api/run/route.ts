@@ -1,0 +1,1 @@
+import {NextResponse} from "next/server";import {isAuthed} from "@/lib/auth";import {collect} from "@/lib/collector";export async function POST(){if(!await isAuthed())return NextResponse.json({error:"Não autorizado"},{status:401});try{return NextResponse.json(await collect())}catch(e){return NextResponse.json({error:e instanceof Error?e.message:String(e)},{status:500})}}
